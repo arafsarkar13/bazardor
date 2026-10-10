@@ -1,43 +1,18 @@
-import { Suspense } from "react";
-import { getProducts } from "@/lib/api";
-import {
-  toBn,
-  formatBanglaDate,
-  formatPrice,
-  formatChange,
-  unitLabel,
-} from "@/lib/format";
+import Hero from "@/components/Hero";
 
-// This part loads data, so it lives in its own component
-async function ProductPreview() {
-  const products = await getProducts();
-
-  return (
-    <>
-      <p>{formatBanglaDate()}</p>
-      <p>মোট পণ্য: {toBn(products.length)}টি</p>
-
-      <ul className="space-y-2">
-        {products.slice(0, 5).map((product) => (
-          <li key={product.id} className="card bg-base-200 p-4">
-            {product.image} {product.nameBn} — {unitLabel(product.unit)} —{" "}
-            {formatPrice(product.today)} — {formatChange(product.change)}
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-}
-
-// TEMPORARY preview page, replaced by the real Home page soon.
 export default function Home() {
   return (
-    <main className="max-w-6xl mx-auto p-6 space-y-4">
-      <h1 className="text-3xl font-bold text-primary">🛒 বাজার দর</h1>
+    <main>
+      <Hero />
 
-      <Suspense fallback={<div className="skeleton h-40 w-full"></div>}>
-        <ProductPreview />
-      </Suspense>
+      {/* TEMPORARY placeholder so the CTA has somewhere to scroll to.
+          The real "সব পণ্য" section replaces it in Step 8. */}
+      <section
+        id="সব-পণ্য"
+        className="max-w-6xl mx-auto px-4 py-10 min-h-screen scroll-mt-32"
+      >
+        <h2 className="text-2xl font-bold">সব পণ্য</h2>
+      </section>
     </main>
   );
 }
