@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getProducts } from "@/lib/api";
 import {
   toBn,
@@ -7,14 +8,12 @@ import {
   unitLabel,
 } from "@/lib/format";
 
-// TEMPORARY preview page, just to test our helpers.
-// It is replaced by the real Home page in the next steps.
-export default async function Home() {
+// This part loads data, so it lives in its own component
+async function ProductPreview() {
   const products = await getProducts();
 
   return (
-    <main className="max-w-6xl mx-auto p-6 space-y-4">
-      <h1 className="text-3xl font-bold text-primary">🛒 বাজার দর</h1>
+    <>
       <p>{formatBanglaDate()}</p>
       <p>মোট পণ্য: {toBn(products.length)}টি</p>
 
@@ -26,6 +25,19 @@ export default async function Home() {
           </li>
         ))}
       </ul>
+    </>
+  );
+}
+
+// TEMPORARY preview page, replaced by the real Home page soon.
+export default function Home() {
+  return (
+    <main className="max-w-6xl mx-auto p-6 space-y-4">
+      <h1 className="text-3xl font-bold text-primary">🛒 বাজার দর</h1>
+
+      <Suspense fallback={<div className="skeleton h-40 w-full"></div>}>
+        <ProductPreview />
+      </Suspense>
     </main>
   );
 }
