@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Hero from "@/components/Hero";
 import Movers, { MoversSkeleton } from "@/components/Movers";
+import AllProducts, { AllProductsSkeleton } from "@/components/AllProducts";
 
 export default function Home() {
   return (
@@ -17,13 +18,10 @@ export default function Home() {
         <Movers type="down" />
       </Suspense>
 
-      {/* TEMPORARY placeholder, replaced by the real "সব পণ্য" section in Step 8 */}
-      <section
-        id="সব-পণ্য"
-        className="max-w-6xl mx-auto px-4 py-10 min-h-screen scroll-mt-32"
-      >
-        <h2 className="text-2xl font-bold">সব পণ্য</h2>
-      </section>
+      {/* Section C: all products (the hero button scrolls here) */}
+      <Suspense fallback={<AllProductsSkeleton />}>
+        <AllProducts />
+      </Suspense>
     </main>
   );
 }
