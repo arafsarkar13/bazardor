@@ -1,17 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import SocialButtons from "./SocialButtons";
 
+// Only allow redirects to pages inside our own site (a safety check)
+function safePath(path) {
+  if (path && path.startsWith("/") && !path.startsWith("//")) return path;
+  return "/";
+}
+
 export default function SignInForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Set by the protected product page, e.g. ?redirect=/product/alu
+  const redirectParam = searchParams.get("redirect");
+  const redirectTo = safePath(redirectParam);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Sent here from a protected page? Tell the user why.
+  useEffect(() => {
+    if (redirectParam) {
+      toast("এই পেজ দেখতে আগে সাইন ইন করুন।", {
+        id: "login-required", // same id = never shown twice
+        icon: "🔒",
+      });
+    }
+  }, [redirectParam]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -25,9 +47,9 @@ export default function SignInForm() {
       return;
     }
 
-    // Success: go to Home and refresh so the page knows we are logged in
+    // Success: go back to where the user wanted to go (or Home)
     toast.success("সাইন ইন সফল হয়েছে!");
-    router.push("/");
+    router.push(redirectTo);
     router.refresh();
   }
 
@@ -86,7 +108,7 @@ export default function SignInForm() {
 
         <div className="divider my-0 text-xs">অথবা</div>
 
-        <SocialButtons />
+        <SocialButtons callbackURL={redirectTo} />
 
         <p className="text-sm text-center">
           অ্যাকাউন্ট নেই?{" "}

@@ -39,7 +39,8 @@ function GitHubIcon() {
   );
 }
 
-export default function SocialButtons() {
+// callbackURL = the page to open after a successful login (default: Home)
+export default function SocialButtons({ callbackURL = "/" }) {
   const [loading, setLoading] = useState("");
 
   async function handleSocial(provider) {
@@ -51,7 +52,7 @@ export default function SocialButtons() {
 
     const { error } = await authClient.signIn.social({
       provider,
-      callbackURL: "/",
+      callbackURL,
     });
 
     // If we are still here, something went wrong

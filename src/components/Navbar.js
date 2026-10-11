@@ -42,9 +42,11 @@ export default async function Navbar() {
     <header className="sticky top-0 z-40 bg-base-100 border-b border-base-300">
       <div className="max-w-6xl mx-auto px-4">
         {/* Row 1: logo + date on the left, auth area on the right */}
-        <div className="flex items-center justify-between gap-3 py-3">
-          <Link href="/" className="flex flex-col leading-tight">
-            <span className="text-xl font-bold text-primary">🛒 বাজার দর</span>
+        <div className="flex items-center justify-between gap-2 py-3">
+          <Link href="/" className="flex min-w-0 flex-col leading-tight">
+            <span className="text-lg font-bold text-primary sm:text-xl">
+              🛒 বাজার দর
+            </span>
             <span className="text-xs text-base-content/60">
               {formatBanglaDate()}
             </span>
