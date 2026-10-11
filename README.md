@@ -6,7 +6,7 @@ BazarDor is a Bangla grocery price tracker. It shows today's prices for 33 every
 
 ## 🔗 Links
 
-- **Live site:** https://YOUR-APP.vercel.app
+- **Live site:** https://bazardor-sandy.vercel.app/
 - **GitHub repo:** https://github.com/arafsarkar13/bazardor
 
 ## 🛠️ Technologies Used
