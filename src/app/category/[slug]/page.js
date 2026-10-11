@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import { getCategory, getProducts } from "@/lib/api";
 import { toBn } from "@/lib/format";
-import { ProductGrid, ProductGridSkeleton } from "@/components/ProductGrid";
+import { ProductGridSkeleton } from "@/components/ProductGrid";
+import SortableProducts from "@/components/SortableProducts";
 import EmptyState from "@/components/EmptyState";
 
 // Gray placeholder shown while the category is loading
@@ -65,8 +66,8 @@ async function CategoryContent({ params }) {
         </div>
       </div>
 
-      {/* Product cards */}
-      <ProductGrid products={products} wide />
+      {/* Sort dropdown + product cards */}
+      <SortableProducts products={products} />
     </section>
   );
 }
