@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getCategories } from "@/lib/api";
 import { formatBanglaDate } from "@/lib/format";
 import { CategoryLinks } from "./CategoryLinks";
+import AuthButtons from "./AuthButtons";
 
 // Shown for a moment while the real navbar is loading
 export function NavbarSkeleton() {
@@ -40,7 +41,7 @@ export default async function Navbar() {
   return (
     <header className="sticky top-0 z-40 bg-base-100 border-b border-base-300">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Row 1: logo + date on the left, auth buttons on the right */}
+        {/* Row 1: logo + date on the left, auth area on the right */}
         <div className="flex items-center justify-between gap-3 py-3">
           <Link href="/" className="flex flex-col leading-tight">
             <span className="text-xl font-bold text-primary">🛒 বাজার দর</span>
@@ -49,14 +50,8 @@ export default async function Navbar() {
             </span>
           </Link>
 
-          <div className="flex items-center gap-2">
-            <Link href="/signin" className="btn btn-ghost btn-sm sm:btn-md">
-              সাইন ইন
-            </Link>
-            <Link href="/signup" className="btn btn-primary btn-sm sm:btn-md">
-              সাইন আপ
-            </Link>
-          </div>
+          {/* Sign in/up buttons, or the profile menu when logged in */}
+          <AuthButtons />
         </div>
 
         {/* Row 2: category chips */}

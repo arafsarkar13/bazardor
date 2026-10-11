@@ -3,6 +3,7 @@ import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import Navbar, { NavbarSkeleton } from "@/components/Navbar";
 import Ticker, { TickerSkeleton } from "@/components/Ticker";
+import ToastProvider from "@/components/ToastProvider";
 
 // Bengali-friendly font from Google Fonts
 const hind = Hind_Siliguri({
@@ -21,6 +22,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="bn" data-theme="bazardor">
       <body className={`${hind.variable} antialiased`}>
+        <ToastProvider />
+
         {/* Components that load data go inside Suspense with a skeleton */}
         <Suspense fallback={<NavbarSkeleton />}>
           <Navbar />
